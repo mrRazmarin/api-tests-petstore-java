@@ -31,7 +31,8 @@
 api-autotests-petstore/
 ├── .github/
 │   └── workflows/
-│       └── api-tests.yml              <-- Конфигурация CI/CD (GitHub Actions)
+│       ├── api-tests.yml              <-- Конфигурация CI/CD (GitHub Actions)
+│       └── qodana_code_quality.yml    <-- Конфигурация для статического анализа кода
 ├── src/
 │   └── test/
 │       ├── java/
@@ -54,6 +55,7 @@ api-autotests-petstore/
 ├── build.gradle                        <-- Зависимости и скрипты сборки
 ├── settings.gradle
 ├── gradlew / gradlew.bat               <-- Gradle Wrapper
+├── qodana.yaml                         <-- Конфигурация воркфлоу Qodana
 └── .gitignore
 └── README.md
 ```
