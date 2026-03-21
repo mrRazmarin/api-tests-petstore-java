@@ -7,21 +7,54 @@ plugins {
 group = 'com.example'
 version = '1.0-SNAPSHOT'
 
+def aspectJVersion = '1.9.21'
+
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
+
 repositories {
     mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test).configureEach {
+    systemProperty 'file.encoding', 'UTF-8'
 }
 
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter:6.0.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:6.0.3'
-    testImplementation 'io.rest-assured:rest-assured:6.0.0'
 
+    // RestAssured
+    testImplementation 'io.rest-assured:rest-assured:6.0.0'
+    testImplementation 'io.rest-assured:json-path:6.0.0'
+
+    //Allure
     testImplementation 'io.qameta.allure:allure-junit5:2.33.0'
     testImplementation 'io.qameta.allure:allure-rest-assured:2.33.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Логгер
+    testImplementation 'org.slf4j:slf4j-simple:2.0.17'
+
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
 }
 
 test {
     useJUnitPlatform()
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
 }
