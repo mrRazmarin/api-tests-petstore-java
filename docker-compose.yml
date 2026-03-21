@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  petstore:
+    image: swaggerapi/petstore:latest
+    container_name: my_petstore_api
+    ports:
+      - "8080:8080" # Мапим порт 8080 контейнера на 8080 твоего компьютера
+    environment:
+      - SWAGGER_BASE_PATH=/v2
+    healthcheck:
+      # Проверяем, что API отвечает (ждем готовности)
+      test: ["CMD", "curl", "-f", "http://localhost:8080/v2/store/inventory"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
