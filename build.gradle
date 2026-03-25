@@ -49,9 +49,12 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
     // Логгер
-    testImplementation 'org.slf4j:slf4j-simple:2.0.17'
+    implementation 'org.apache.logging.log4j:log4j-core:2.25.3'
 
     agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
+    //json
+    implementation 'tools.jackson.core:jackson-databind:3.0.4'
 }
 
 test {
